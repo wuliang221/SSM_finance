@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.DepartmentaMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Departmenta" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="departmentalName" property="departmentalName" jdbcType="VARCHAR" />
+    <result column="personsNum" property="personsNum" jdbcType="INTEGER" />
+    <result column="WageCoefficient" property="wageCoefficient" jdbcType="DOUBLE" />
+  </resultMap>
+  <!-- 查询所有部门信息 -->
+  <select id="getAllDepart" resultType="Departmenta"> 
+  	SELECT * FROM departmenta LIMIT #{pageNo},#{pageSize}
+  </select>
+  <select id="countDepart" resultType="int">
+  SELECT COUNT(1) from departmenta
+  </select>
+  <delete id="delDepartmenta">
+  
+DELETE FROM db_cwgl.departmenta 
+	WHERE
+	id = #{id} ;
+  </delete>
+  
+  <select id="departmenta" resultType="Departmenta">
+  
+SELECT *
+	FROM 
+	db_cwgl.departmenta 
+  WHERE id=#{id}
+  
+  </select>
+  <select id="getAllDepart1" resultType="Departmenta">
+  SELECT *
+	FROM 
+	db_cwgl.departmenta 
+  </select>
+  
+  <update id="updateDepartmenta">
+  
+UPDATE db_cwgl.departmenta 
+	SET
+	departmentalName = #{departmentalName} , 
+	personsNum = #{personsNum}, 
+	WageCoefficient = #{wageCoefficient}
+	
+	WHERE
+	id = #{id} ;
+  
+  </update>
+  
+  <insert id="addDepartmenta">
+  
+INSERT INTO db_cwgl.departmenta 
+	(
+	departmentalName, 
+	personsNum, 
+	WageCoefficient
+	)
+	VALUES
+	(
+	#{departmentalName}, 
+	#{personsNum}, 
+	#{wageCoefficient}
+	);
+  
+  </insert>
+</mapper>

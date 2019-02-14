@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.BusinessinformationMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Businessinformation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="businessName" property="businessname" jdbcType="VARCHAR" />
+    <result column="creatDate" property="creatdate" jdbcType="TIMESTAMP" />
+    <result column="investment" property="investment" jdbcType="DECIMAL" />
+    <result column="revenue" property="revenue" jdbcType="DECIMAL" />
+    <result column="profit" property="profit" jdbcType="DECIMAL" />
+  </resultMap>
+ 
+ <select id="BusinessCount" resultType="int">
+ 	SELECT COUNT(*) FROM businessinformation
+ </select>
+ 
+ <select id="selectBusiness" resultType="Businessinformation">
+ SELECT *
+	FROM db_cwgl.businessinformation 
+	LIMIT #{pageNo}, #{pageSize}
+ 
+ </select>
+ <insert id="addBusinessinformation">
+ 
+INSERT INTO db_cwgl.businessinformation 
+	(
+	businessName, 
+	investment, 
+	revenue
+	)
+	VALUES
+	(
+	#{businessName}, 
+	#{investment}, 
+	#{revenue}
+	);
+ 
+ </insert>
+ 
+ <select id="businessinformation" resultType="Businessinformation">
+SELECT 	*
+	FROM 
+	db_cwgl.businessinformation 
+	WHERE id=#{id}
+ </select>
+ 
+ <delete id="delBusinessinformation">
+ 
+DELETE FROM db_cwgl.businessinformation 
+	WHERE
+	id = #{id} ;
+
+ 
+ </delete>
+ 
+ <update id="updateBusinessinformation">
+ 
+UPDATE db_cwgl.businessinformation 
+	SET
+	businessName = #{businessName} , 
+	investment = #{investment} , 
+	revenue = #{revenue}
+	
+	WHERE
+	id = #{id} ;
+ 
+ </update>
+ 
+</mapper>

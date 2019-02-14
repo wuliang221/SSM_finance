@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.AssetcategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Assetcategory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <select id="assetCount" resultType="int">
+  SELECT  COUNT(*) 
+  FROM assetcategory 
+  </select>
+  
+  <select id="selectAll" resultType="Assetcategory">
+  SELECT *
+	FROM db_cwgl.assetcategory 
+		where 1=1
+			LIMIT #{pagNo},#{pageSize}
+  </select>
+  
+ <insert id="addAssetcategory" >
+INSERT INTO db_cwgl.assetcategory 
+	(
+	NAME
+	)
+	VALUES
+	( 
+ 	#{name}	
+	);
+ </insert>
+ <!--根据ID进行隐藏（页面删除）  -->
+ <update id="delAssetcategory" >
+UPDATE db_cwgl.assetcategory 
+	SET
+	del = #{del}	
+	WHERE
+	id = #{id} ;
+ </update>
+ <!-- 根据ID修改名字 -->
+ <update id="updateAssetcategory">
+ 
+UPDATE db_cwgl.assetcategory 
+	SET
+	NAME =#{name}  
+	WHERE
+	id = #{id} ;
+ 
+ </update>
+ 
+ 
+<select id="assetcategory" resultType="assetcategory">
+SELECT 	
+	NAME
+	FROM 
+	db_cwgl.assetcategory 
+	where id=#{id}
+</select>
+ 
+ 
+</mapper>

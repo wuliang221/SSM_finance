@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Admin" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="adminName" property="adminname" jdbcType="VARCHAR" />
+    <result column="adminPwd" property="adminpwd" jdbcType="VARCHAR" />
+  </resultMap>
+
+	<select id="getAdmin"  resultType="Admin">
+		SELECT * FROM admin WHERE adminName=#{adminName} AND adminPwd=#{adminPwd}
+	</select>
+</mapper>

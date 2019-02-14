@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.EmployeesMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.Employees" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="departmentalNo" property="departmentalno" jdbcType="INTEGER" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="entryTime" property="entrytime" jdbcType="TIMESTAMP" />
+    <result column="loginName" property="loginName" jdbcType="VARCHAR" />
+     <result column="departmentalName" property="departmentalName" jdbcType="VARCHAR" />
+    <association property="Payroll" javaType="com.pojo.Payroll">
+    	<result column="basepay" property="basepay" />
+    	<result column="jobsubsidy" property="jobsubsidy" />
+    	<result column="worksubsidy" property="worksubsidy" />
+    	<result column="subsidy" property="subsidy" />
+    </association>
+    <association property="Departmenta" javaType="com.pojo.Departmenta">
+    	<result column="departmentalname" property="departmentalname" jdbcType="VARCHAR"/>
+    </association>
+  </resultMap>
+  <!-- 普通员工查询方法登陆 -->
+  <select id="getEmployees" resultType="Employees">
+  	
+	SELECT * FROM employees WHERE loginName=#{loginName} AND password=#{password}
+
+  </select>
+  <!--  查询所有员工的信息(或者根据姓名模糊查询) -->
+  <select id="getEmployeesAll" resultType="Employees">
+  	SELECT 	*
+		FROM employees AS e INNER JOIN payroll AS p
+		ON e.id=p.employeeNo
+			INNER JOIN departmenta AS d
+			ON e.departmentalNo=d.id
+				WHERE 1=1 
+				  	<if test="name != null and name!=''">
+				  	AND e.name LIKE CONCAT('%',#{name},'%')
+				  	</if>
+				  	LIMIT #{pagNo},#{pageSize}
+  </select>
+  
+  <!-- 根据ID查询员工的信息 -->
+    <select id="getEmployeesByid" resultMap="BaseResultMap">
+  	SELECT 	*
+		FROM employees AS e INNER JOIN payroll AS p
+		ON e.id=p.employeeNo
+			INNER JOIN departmenta AS d
+			ON e.departmentalNo=d.id
+				WHERE e.id=#{id}
+				  	
+  </select>
+ 
+ 
+ <!--查询普通员工的数量（或者模糊查询普通员工的数量）  -->
+  <select id="countEmployees" resultType="int">
+  	SELECT COUNT(1) from employees WHERE 1=1 
+  	<if test="name != null and name!=''">
+  	AND name LIKE CONCAT('%',#{name},'%')
+  	</if>
+  </select>
+  <!-- 普通用户根据自己的id修改密码 -->
+  <update id="updatePasswordById">
+  	
+	UPDATE employees 
+		SET	
+		PASSWORD = #{password} 	
+		WHERE
+		id = #{id}
+  </update>
+  
+  
+  <!--管理员添加新的普通员工  -->
+  <insert id="adminInsertEmployees" parameterType="Employees">
+	INSERT INTO employees 
+		(
+		departmentalNo, 
+		PASSWORD, 
+		NAME, 
+		gender, 
+		entryTime, 
+		loginName
+		)
+		VALUES
+		(
+		#{departmentalNo}, 
+		#{password}, 
+		#{name}, 
+		#{gender}, 
+		#{entryTime}, 
+		#{loginName}
+		);
+  </insert>
+  
+  
+  <!-- 管理员根据id删除普通员工 -->
+  <delete id="adminDelectEmployees">
+  	DELETE FROM employees 
+	WHERE
+	id = #{id} ;
+  </delete>
+  
+  <!-- 管理员根据ID修改普通员工信息 -->
+  <update id="adminUpdateEmployeesById" parameterType="Employees">
+  UPDATE employees 
+	SET
+	departmentalNo =#{departmentalNo}, 
+	`password`=#{password}, 
+	`name`=#{name}, 
+	gender=#{gender}
+	WHERE
+	id=#{id}
+  
+  </update>
+  
+</mapper>
