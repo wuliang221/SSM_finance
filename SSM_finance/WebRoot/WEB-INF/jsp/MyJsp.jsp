@@ -17,6 +17,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link href="${pageContext.request.contextPath }/statics/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath }/statics/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     
+    
+    
+    
+    
 	<!-- VENDOR CSS -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/statics/assets/vendor/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/statics/assets/vendor/font-awesome/css/font-awesome.min.css">
