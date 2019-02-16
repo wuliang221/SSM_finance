@@ -11,6 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>Home</title>
     
     <!-- 时间控件 -->
+    <!-- 修改测试！！！！！！！！！！！！！！！！ -->
 	<script src="${pageContext.request.contextPath }/statics/layDate-v5.0.9/laydate/laydate.js"></script>
     
      <!-- 引入bootstrap框架 -->
