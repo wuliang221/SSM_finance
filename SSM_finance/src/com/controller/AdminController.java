@@ -33,5 +33,9 @@ public class AdminController {
 	public String changePwd11(){
 		return "Table/Tables9";
 	}
+	@RequestMapping("/change.html")
+	public String changePwd12(){
+		return "Table/Tables9";
+	}
 	
 }
