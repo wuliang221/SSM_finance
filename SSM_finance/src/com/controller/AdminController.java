@@ -30,7 +30,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/change.html")
-	public String changePwd11(){
+	public String changePwd1(){
 		return "Table/Tables9";
 	}
 	
