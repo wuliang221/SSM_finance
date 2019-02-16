@@ -29,5 +29,9 @@ public class AdminController {
 		return "Table/Tables9";
 	}
 	
+	@RequestMapping("/change.html")
+	public String changePwd11(){
+		return "Table/Tables9";
+	}
 	
 }
